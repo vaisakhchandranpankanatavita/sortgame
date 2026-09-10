@@ -19,8 +19,8 @@ android {
         applicationId = "com.sortescape.game"
         minSdk = project.property("androidMinSdk").toString().toInt()
         targetSdk = project.property("androidTargetSdk").toString().toInt()
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.0.1"
     }
 
     sourceSets {

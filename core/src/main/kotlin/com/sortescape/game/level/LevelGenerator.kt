@@ -46,9 +46,9 @@ class LevelGenerator(private val validator: LevelValidator = LevelValidator()) {
     }
 
     private fun build(levelId: Int, band: LevelBandConfig, rng: Random): LevelData {
-        val categoryCount = band.categoryCount.random(rng)
+        val categoryCount = band.categoryCount.randomIn(rng)
         val categories = ObjectDatabase.SORTABLE_CATEGORIES.shuffled(rng).take(categoryCount)
-        val totalObjects = band.objectCount.random(rng)
+        val totalObjects = band.objectCount.randomIn(rng)
 
         // Distribute object count roughly evenly across the chosen categories.
         val perCategory = IntArray(categories.size) { totalObjects / categories.size }
@@ -97,12 +97,17 @@ class LevelGenerator(private val validator: LevelValidator = LevelValidator()) {
             }
         }
 
-        // Containers: one per category, capacity sized to comfortably hold that category's objects.
-        val containers = categories.mapIndexed { ci, category ->
+        // Containers: one per category. Each container must be able to hold every wildcard in the
+        // level in addition to its own real objects - a wildcard can be dropped into ANY container,
+        // so if a player piles several into one box before its real objects are sorted, a tighter
+        // capacity could fill that box and block a legitimate object (a soft-lock, not a skill issue).
+        // Sizing for the worst case (all wildcards in one box) makes that structurally impossible.
+        val totalWildcards = objects.count { it.special == SpecialType.WILDCARD }
+        val containers = categories.map { category ->
             val realCount = objects.count {
                 it.special != SpecialType.WILDCARD && ObjectDatabase.byId(it.objectId).category == category
             }
-            val capacity = maxOf(realCount + (objects.count { it.special == SpecialType.WILDCARD } / categories.size) + 1, 2)
+            val capacity = maxOf(realCount + totalWildcards + 1, 2)
             ContainerData(id = "box_${category.name.lowercase()}", category = category, capacity = capacity)
         }
 
@@ -129,5 +134,5 @@ class LevelGenerator(private val validator: LevelValidator = LevelValidator()) {
         return objectCount + categoryCount * 3 + obstacleCount * 2 + moveRestriction * 2 + timeRestriction
     }
 
-    private fun IntRange.random(rng: Random) = if (first == last) first else rng.nextInt(first, last + 1)
+    private fun IntRange.randomIn(rng: Random) = if (first == last) first else rng.nextInt(first, last + 1)
 }

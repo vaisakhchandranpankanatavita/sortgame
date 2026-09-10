@@ -205,6 +205,10 @@ class SortManager(
     fun objectsRemaining(): Int = boardObjects.count { it.state != ObjectVisualState.SORTED }
     fun isFailed(): Boolean = failed
     fun isCompleted(): Boolean = completed
+    val elapsedSeconds: Float get() = elapsedSec
+
+    /** Public, encapsulated view of BoardObject.isLocked - screens should use this instead of reflection. */
+    fun isLocked(obj: BoardObject): Boolean = obj.isLocked(sortedInstanceIds)
 
     fun dispose() {
         boardObjects.forEach { physics.destroyBody(it.body) }

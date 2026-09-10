@@ -1,0 +1,10 @@
+.gradle/
+build/
+*/build/
+gradle-8.7/
+gradle-8.7-bin.zip
+local.properties
+.idea/
+*.iml
+.DS_Store
+.claude/

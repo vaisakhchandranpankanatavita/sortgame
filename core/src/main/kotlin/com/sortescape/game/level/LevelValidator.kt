@@ -59,7 +59,14 @@ class LevelValidator {
             reasons.add("maxMoves ${level.maxMoves} is below object count ${level.objects.size}")
         }
 
-        // 5. Board must not be empty.
+        // 5. Total capacity must cover every object, including the worst case where every
+        //    wildcard piles into a single container (see LevelGenerator's capacity comment).
+        val totalCapacity = level.containers.sumOf { it.capacity }
+        if (totalCapacity < level.objects.size) {
+            reasons.add("Total container capacity $totalCapacity is below object count ${level.objects.size}")
+        }
+
+        // 6. Board must not be empty.
         if (level.objects.isEmpty() || level.containers.isEmpty()) {
             reasons.add("Level has no objects or no containers")
         }

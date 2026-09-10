@@ -58,6 +58,8 @@ dependencies {
     val gdxVersion = project.property("gdxVersion")
     val box2DVersion = project.property("box2DVersion")
 
+    implementation("com.badlogicgames.gdx:gdx:$gdxVersion")
+    implementation("com.badlogicgames.gdx:gdx-box2d:$box2DVersion")
     implementation("com.badlogicgames.gdx:gdx-backend-android:$gdxVersion")
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a")
     implementation("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a")

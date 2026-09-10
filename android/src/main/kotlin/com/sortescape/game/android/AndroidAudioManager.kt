@@ -2,6 +2,7 @@ package com.sortescape.game.android
 
 import android.media.AudioAttributes
 import android.media.AudioFormat
+import android.media.AudioManager as PlatformAudioManager
 import android.media.AudioTrack
 import com.sortescape.game.audio.AudioManager
 import kotlin.math.sin
@@ -43,7 +44,7 @@ class AndroidAudioManager : AudioManager {
             .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
             .build()
         val track = AudioTrack(
-            attributes, format, pcm.size * 2, AudioTrack.MODE_STATIC, AudioTrack.SESSION_ID_GENERATE
+            attributes, format, pcm.size * 2, AudioTrack.MODE_STATIC, PlatformAudioManager.AUDIO_SESSION_ID_GENERATE
         )
         track.write(pcm, 0, pcm.size)
         track.setNotificationMarkerPosition(pcm.size)

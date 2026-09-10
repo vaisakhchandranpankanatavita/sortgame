@@ -1,0 +1,445 @@
+<title>Sort Escape Privacy Policy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --ink: #1f2430;
+    --ink-soft: #565c6d;
+    --ink-faint: #8b90a0;
+    --rule: #ddd9d0;
+    --accent: #3d6e63;
+    --accent-soft: #e7efec;
+    --accent-ink: #274d44;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171c;
+      --surface: #1b1f26;
+      --ink: #edeff2;
+      --ink-soft: #a7adbb;
+      --ink-faint: #6d7382;
+      --rule: #2b3038;
+      --accent: #7bc4b3;
+      --accent-soft: #1e2b28;
+      --accent-ink: #bfe8db;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #14171c;
+    --surface: #1b1f26;
+    --ink: #edeff2;
+    --ink-soft: #a7adbb;
+    --ink-faint: #6d7382;
+    --rule: #2b3038;
+    --accent: #7bc4b3;
+    --accent-soft: #1e2b28;
+    --accent-ink: #bfe8db;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    line-height: 1.65;
+    margin: 0;
+    padding: 0;
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+  }
+
+  header.doc-head {
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 22px;
+    height: 2px;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0 0 0.75rem;
+    color: var(--ink);
+  }
+
+  .subtitle {
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    max-width: 46ch;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+
+  .meta-row strong {
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  nav.toc p {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 0.75rem;
+  }
+
+  nav.toc ol {
+    columns: 2;
+    column-gap: 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav.toc li {
+    break-inside: avoid;
+    margin-bottom: 0.5rem;
+  }
+
+  nav.toc a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.92rem;
+  }
+
+  nav.toc a:hover, nav.toc a:focus-visible {
+    color: var(--accent-ink);
+    text-decoration: underline;
+  }
+
+  section.clause {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1.25rem;
+    padding: 2.25rem 0;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 1.5rem;
+  }
+
+  section.clause:first-of-type { border-top: none; padding-top: 0; }
+
+  .clause-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    padding-top: 0.3rem;
+  }
+
+  .clause h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin: 0 0 0.9rem;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+
+  .clause p, .clause li {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    max-width: 62ch;
+  }
+
+  .clause p + p { margin-top: 0.9rem; }
+
+  .clause ul {
+    margin: 0.9rem 0 0;
+    padding-left: 1.2rem;
+  }
+
+  .clause li + li { margin-top: 0.5rem; }
+
+  .clause strong { color: var(--ink); font-weight: 600; }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    border-radius: 100px;
+    padding: 0.3rem 0.75rem;
+  }
+
+  a.inline-link {
+    color: var(--accent-ink);
+    text-decoration-color: var(--accent);
+    text-underline-offset: 2px;
+  }
+
+  .callout {
+    background: var(--accent-soft);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-top: 1.1rem;
+    font-size: 0.92rem;
+    color: var(--accent-ink);
+  }
+
+  table.datatable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  table.datatable th, table.datatable td {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+
+  table.datatable th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 500;
+  }
+
+  .table-scroll { overflow-x: auto; }
+
+  footer.doc-foot {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+
+  footer.doc-foot a { color: var(--accent-ink); }
+
+  @media (max-width: 560px) {
+    section.clause { grid-template-columns: 1fr; gap: 0.4rem; }
+    .clause-number { padding-top: 0; }
+    nav.toc ol { columns: 1; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="doc-head">
+    <div class="eyebrow">Privacy Policy</div>
+    <h1>How Sort Escape handles your data</h1>
+    <p class="subtitle">Plain-language version first, full detail below. Sort Escape is a single-player puzzle
+      game with no account system — almost everything it knows about you never leaves your phone.</p>
+    <div class="meta-row">
+      <span><strong>App</strong>&nbsp; Sort Escape (com.sortescape.game)</span>
+      <span><strong>Effective</strong>&nbsp; 10 September 2026</span>
+      <span><strong>Contact</strong>&nbsp; <a class="inline-link" href="mailto:oldmonkdevelopers@gmail.com">oldmonkdevelopers@gmail.com</a></span>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Table of contents">
+    <p>Sections</p>
+    <ol>
+      <li><a href="#collect">01 — What we collect</a></li>
+      <li><a href="#device">02 — What stays on your device</a></li>
+      <li><a href="#ads">03 — Advertising (Google AdMob)</a></li>
+      <li><a href="#thirdparty">04 — Third parties we use</a></li>
+      <li><a href="#children">05 — Children's privacy</a></li>
+      <li><a href="#retention">06 — Data retention & deletion</a></li>
+      <li><a href="#security">07 — Security</a></li>
+      <li><a href="#changes">08 — Changes to this policy</a></li>
+    </ol>
+  </nav>
+
+  <section class="clause" id="collect">
+    <div class="clause-number">01</div>
+    <div>
+      <h2>What we collect</h2>
+      <p>Sort Escape does not ask you to create an account, log in, or provide your name, email, or
+        any other personal information to play. We — the developer — do not operate any server that
+        receives your gameplay data.</p>
+      <p>The game itself only reads and writes <strong>local, on-device data</strong>: your level
+        progress, coin/gem/star balances, unlocked themes, achievement status, and settings
+        (sound, music, haptics). None of that is transmitted anywhere by us.</p>
+    </div>
+  </section>
+
+  <section class="clause" id="device">
+    <div class="clause-number">02</div>
+    <div>
+      <h2>What stays on your device</h2>
+      <p>All progress is stored in a single local save file on your device using Android's standard
+        app-private storage. It is sandboxed to Sort Escape — no other app can read it, and we have
+        no remote copy of it.</p>
+      <div class="pill-row">
+        <span class="pill">Current level</span>
+        <span class="pill">Coins / gems / stars</span>
+        <span class="pill">Unlocked themes</span>
+        <span class="pill">Achievements</span>
+        <span class="pill">Daily-reward streak</span>
+        <span class="pill">Sound / haptics settings</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="clause" id="ads">
+    <div class="clause-number">03</div>
+    <div>
+      <h2>Advertising (Google AdMob)</h2>
+      <p>Sort Escape shows optional rewarded ads (for example, "watch an ad for +5 moves") and, less
+        frequently, interstitial ads between levels, served through <strong>Google AdMob</strong>.
+        You are never required to watch an ad to keep playing — it's always an optional way to get
+        a bonus.</p>
+      <p>To serve and measure ads, Google's Mobile Ads SDK running inside the app can collect
+        information such as your advertising ID, general device information, coarse location
+        (e.g. country/region), and ad interaction data. We do not receive this data directly —
+        it's collected by Google under its own privacy terms, linked below.</p>
+      <div class="callout">
+        Google's own policies govern how that data is used:
+        <a class="inline-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>
+        &nbsp;·&nbsp;
+        <a class="inline-link" href="https://www.google.com/about/company/user-consent-policy/" target="_blank" rel="noopener">Google's EU User Consent Policy</a>
+      </div>
+      <p style="margin-top:1rem">You can opt out of personalized advertising at any time in your
+        device's settings (<em>Settings → Privacy → Ads</em> on most Android versions), or by
+        installing the
+        <a class="inline-link" href="https://play.google.com/store/apps/details?id=com.google.android.gms.supervision" target="_blank" rel="noopener">Google-provided</a>
+        controls for your Google account.</p>
+    </div>
+  </section>
+
+  <section class="clause" id="thirdparty">
+    <div class="clause-number">04</div>
+    <div>
+      <h2>Third parties we use</h2>
+      <div class="table-scroll">
+        <table class="datatable">
+          <thead>
+            <tr><th>Service</th><th>Purpose</th><th>Data involved</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Google AdMob</td>
+              <td>Shows rewarded &amp; interstitial ads</td>
+              <td>Advertising ID, device info, ad interactions — see Section 03</td>
+            </tr>
+            <tr>
+              <td>Google Play</td>
+              <td>App distribution, installs, updates</td>
+              <td>Handled entirely under Google Play's own policies</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:1rem">We do not currently use any analytics, crash-reporting, or
+        advertising network beyond AdMob. If that changes in a future update, this policy will be
+        updated first (see Section 08).</p>
+    </div>
+  </section>
+
+  <section class="clause" id="children">
+    <div class="clause-number">05</div>
+    <div>
+      <h2>Children's privacy</h2>
+      <p>Sort Escape is a general-audience casual puzzle game and is not specifically directed at
+        children under 13. We do not knowingly collect personal information from children. If you
+        believe a child has provided us with personal information, contact us at the address below
+        and we will address it.</p>
+    </div>
+  </section>
+
+  <section class="clause" id="retention">
+    <div class="clause-number">06</div>
+    <div>
+      <h2>Data retention &amp; deletion</h2>
+      <p>Because your progress lives only on your device, you're always in control of it:</p>
+      <ul>
+        <li><strong>Clear it any time</strong> — Android Settings → Apps → Sort Escape → Storage → Clear data.</li>
+        <li><strong>Delete it entirely</strong> — uninstalling the app removes the local save file along with it.</li>
+      </ul>
+      <p>We hold no copy of it to delete on our side, because we never received one.</p>
+    </div>
+  </section>
+
+  <section class="clause" id="security">
+    <div class="clause-number">07</div>
+    <div>
+      <h2>Security</h2>
+      <p>The app requests only the Android permissions it needs to function: vibration (for haptic
+        feedback) and internet/network-state access (required for ads to load). Your local save
+        data is sandboxed by Android's app-storage model, the same protection every installed app
+        relies on.</p>
+    </div>
+  </section>
+
+  <section class="clause" id="changes">
+    <div class="clause-number">08</div>
+    <div>
+      <h2>Changes to this policy</h2>
+      <p>If we add new features that change what data is collected — an account system, cloud save,
+        analytics, or a leaderboard, for instance — we'll update this page and change the "Effective"
+        date at the top before that feature ships. We won't retroactively expand data collection
+        without saying so here first.</p>
+    </div>
+  </section>
+
+  <footer class="doc-foot">
+    <span>Questions about this policy? <a href="mailto:oldmonkdevelopers@gmail.com">oldmonkdevelopers@gmail.com</a></span>
+    <span>Sort Escape · com.sortescape.game</span>
+  </footer>
+</div>

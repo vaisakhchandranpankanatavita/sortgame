@@ -8,3 +8,5 @@ local.properties
 *.iml
 .DS_Store
 .claude/
+android/keystore/
+android/keystore.properties

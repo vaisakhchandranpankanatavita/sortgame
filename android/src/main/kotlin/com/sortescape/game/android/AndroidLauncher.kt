@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.badlogic.gdx.backends.android.AndroidApplication
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 import com.sortescape.game.SortEscapeGame
-import com.sortescape.game.ads.MockAdManager
 
 class AndroidLauncher : AndroidApplication() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +16,7 @@ class AndroidLauncher : AndroidApplication() {
         val game = SortEscapeGame(
             audioManager = AndroidAudioManager(),
             hapticManager = AndroidHapticManager(this),
-            adManager = MockAdManager()
+            adManager = AndroidAdMobManager(this)
         )
         initialize(game, config)
     }

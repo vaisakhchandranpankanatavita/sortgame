@@ -13,6 +13,10 @@
         android:hardwareAccelerated="true"
         android:banner="@mipmap/ic_launcher">
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${admobAppId}" />
+
         <activity
             android:name="com.sortescape.game.android.AndroidLauncher"
             android:exported="true"

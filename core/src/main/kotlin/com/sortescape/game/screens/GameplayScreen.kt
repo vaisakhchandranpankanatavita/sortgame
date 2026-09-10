@@ -23,6 +23,7 @@ import com.sortescape.game.gameplay.ObjectVisualState
 import com.sortescape.game.gameplay.SortListener
 import com.sortescape.game.gameplay.SortManager
 import com.sortescape.game.graphics.CategoryColors
+import com.sortescape.game.graphics.Confetti
 import com.sortescape.game.graphics.ProceduralArt
 import com.sortescape.game.physics.PhysicsWorld
 import com.sortescape.game.score.ScoreManager
@@ -67,6 +68,10 @@ class GameplayScreen(private val game: SortEscapeGame, private val levelId: Int)
         ProceduralArt.roundedGradientPanel(300, 90, 20, CategoryColors.top(Category.ELECTRONICS), CategoryColors.bottom(Category.ELECTRONICS))
     }
 
+    // Section 21/25: "Objects disappear -> Confetti -> Stars -> Reward" on a win.
+    private val confetti = Confetti()
+    private val confettiDot: Texture by lazy { ProceduralArt.particleDot(32, Color.WHITE) }
+
     private var nextButtonBounds = Rectangle()
     private var retryButtonBounds = Rectangle()
     private var menuButtonBounds = Rectangle()
@@ -84,6 +89,8 @@ class GameplayScreen(private val game: SortEscapeGame, private val levelId: Int)
     override fun render(delta: Float) {
         if (phase == Phase.PLAYING) {
             sortManager.update(delta)
+        } else if (confetti.isActive()) {
+            confetti.update(delta)
         }
         comboFlash = (comboFlash - delta).coerceAtLeast(0f)
         handleInput()
@@ -156,6 +163,7 @@ class GameplayScreen(private val game: SortEscapeGame, private val levelId: Int)
         val w = hudViewport.worldWidth
         val h = hudViewport.worldHeight
         batch.draw(overlayDim, 0f, 0f, w, h)
+        if (phase == Phase.COMPLETED) confetti.render(batch, confettiDot)
 
         val title = if (phase == Phase.COMPLETED) "Level Complete!" else "Out of Moves"
         layout.setText(hudFont, title)
@@ -258,6 +266,7 @@ class GameplayScreen(private val game: SortEscapeGame, private val levelId: Int)
             if (levelId >= it.currentLevel) it.currentLevel = levelId + 1
         }
         phase = Phase.COMPLETED
+        confetti.burst(hudViewport.worldWidth, hudViewport.worldHeight)
         game.audioManager.playLevelComplete()
         game.adManager.showInterstitialIfDue(game.saveManager.data.levelsPlayed) {}
     }
@@ -289,5 +298,6 @@ class GameplayScreen(private val game: SortEscapeGame, private val levelId: Int)
         selectionRing.dispose()
         overlayDim.dispose()
         overlayButtonTexture.dispose()
+        confettiDot.dispose()
     }
 }

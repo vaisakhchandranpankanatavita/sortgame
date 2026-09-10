@@ -55,7 +55,7 @@ class GameplayScreen(private val game: SortEscapeGame, private val levelId: Int)
     private var starsEarned = 0
 
     private val panelCache = HashMap<Category, Texture>()
-    private val objectCache = HashMap<Category, Texture>()
+    private val objectCache = HashMap<String, Texture>()
     private val mysteryTexture: Texture by lazy { ProceduralArt.softCircle(128, CategoryColors.mysteryTop) }
     private val selectionRing: Texture by lazy { ProceduralArt.softCircle(160, CategoryColors.selectionRing) }
 
@@ -77,8 +77,8 @@ class GameplayScreen(private val game: SortEscapeGame, private val levelId: Int)
         ProceduralArt.roundedGradientPanel(220, 160, 24, CategoryColors.top(category), CategoryColors.bottom(category))
     }
 
-    private fun iconFor(category: Category): Texture = objectCache.getOrPut(category) {
-        ProceduralArt.softCircle(128, CategoryColors.top(category))
+    private fun iconFor(objectId: String, category: Category): Texture = objectCache.getOrPut(objectId) {
+        ProceduralArt.objectIcon(objectId, CategoryColors.top(category))
     }
 
     override fun render(delta: Float) {
@@ -122,8 +122,13 @@ class GameplayScreen(private val game: SortEscapeGame, private val levelId: Int)
             }
 
             val hideIdentity = obj.instance.special == SpecialType.MYSTERY && !obj.revealed
-            val tex = if (hideIdentity) mysteryTexture else iconFor(obj.definition.category)
+            val tex = if (hideIdentity) mysteryTexture else iconFor(obj.definition.id, obj.definition.category)
+
+            // Section 8.1: a locked object can't be sorted until its prerequisite is. Dim it so
+            // the player isn't left guessing why a tap on it does nothing.
+            if (sortManager.isLocked(obj)) batch.setColor(1f, 1f, 1f, 0.45f)
             batch.draw(tex, pos.x - obj.radius, pos.y - obj.radius, size, size)
+            batch.setColor(1f, 1f, 1f, 1f)
         }
     }
 
@@ -282,5 +287,7 @@ class GameplayScreen(private val game: SortEscapeGame, private val levelId: Int)
         objectCache.values.forEach { it.dispose() }
         mysteryTexture.dispose()
         selectionRing.dispose()
+        overlayDim.dispose()
+        overlayButtonTexture.dispose()
     }
 }

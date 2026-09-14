@@ -19,8 +19,8 @@ android {
         applicationId = "com.sortescape.game"
         minSdk = project.property("androidMinSdk").toString().toInt()
         targetSdk = project.property("androidTargetSdk").toString().toInt()
-        versionCode = 2
-        versionName = "1.0.1"
+        versionCode = 3
+        versionName = "1.0.2"
     }
 
     sourceSets {
@@ -50,31 +50,16 @@ android {
         }
     }
 
-    // Google's official public *test* AdMob IDs (safe to build with, never earn real money,
-    // documented at https://developers.google.com/admob/android/test-ads). Both build types
-    // default to these so the app is always buildable and ads always work for testing.
-    // Before a real store release: create an AdMob account at https://apps.admob.com,
-    // register this app (package com.sortescape.game), and replace the three "release"
-    // values below with your own App ID / rewarded / interstitial ad unit IDs.
-    val testAdMobAppId = "ca-app-pub-3940256099942544~3347511713"
-    val testRewardedUnitId = "ca-app-pub-3940256099942544/5224354917"
-    val testInterstitialUnitId = "ca-app-pub-3940256099942544/1033173712"
-
+    // Ads are disabled in this release. The app ships fully offline with no ad SDK, no AdMob
+    // App ID, and no network permissions, so there is nothing here for a reviewer to flag as
+    // broken/placeholder ad content. To add real ads later, reintroduce the AdMob dependency
+    // and a real (non-test) App ID / ad unit IDs from https://apps.admob.com.
     buildTypes {
-        debug {
-            manifestPlaceholders["admobAppId"] = testAdMobAppId
-            buildConfigField("String", "ADMOB_REWARDED_UNIT_ID", "\"$testRewardedUnitId\"")
-            buildConfigField("String", "ADMOB_INTERSTITIAL_UNIT_ID", "\"$testInterstitialUnitId\"")
-        }
         release {
             isMinifyEnabled = false
             if (keystoreProperties.isNotEmpty()) {
                 signingConfig = signingConfigs.getByName("release")
             }
-            // TODO before shipping for real: swap these three for your own AdMob IDs.
-            manifestPlaceholders["admobAppId"] = testAdMobAppId
-            buildConfigField("String", "ADMOB_REWARDED_UNIT_ID", "\"$testRewardedUnitId\"")
-            buildConfigField("String", "ADMOB_INTERSTITIAL_UNIT_ID", "\"$testInterstitialUnitId\"")
         }
     }
 
@@ -89,7 +74,7 @@ android {
 
     buildFeatures {
         viewBinding = false
-        buildConfig = true
+        buildConfig = false
     }
 }
 
@@ -110,6 +95,4 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-box2d-platform:$box2DVersion:natives-arm64-v8a")
     implementation("com.badlogicgames.gdx:gdx-box2d-platform:$box2DVersion:natives-x86")
     implementation("com.badlogicgames.gdx:gdx-box2d-platform:$box2DVersion:natives-x86_64")
-
-    implementation("com.google.android.gms:play-services-ads:23.6.0")
 }

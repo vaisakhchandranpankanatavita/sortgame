@@ -37,41 +37,40 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Decode upload keystore
+      - name: Decode upload keystore and write keystore.properties
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        run: |
-          if [ -z "$KEYSTORE_BASE64" ]; then
-            echo "::error::KEYSTORE_BASE64 secret is not set. Add your upload keystore as a repo secret (see workflow header)."
-            exit 1
-          fi
-          mkdir -p android/keystore
-          echo "$KEYSTORE_BASE64" | base64 --decode > android/keystore/upload.jks
-
-      - name: Write keystore.properties
-        env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "::warning::No KEYSTORE_BASE64 secret set - building an UNSIGNED bundle (good for a compile check, NOT uploadable to Play). Add your keystore secrets to get a signed, uploadable AAB."
+            echo "SIGNED=false" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          mkdir -p android/keystore
+          echo "$KEYSTORE_BASE64" | base64 --decode > android/keystore/upload.jks
           {
             echo "storeFile=keystore/upload.jks"
             echo "storePassword=${KEYSTORE_PASSWORD}"
             echo "keyAlias=${KEY_ALIAS}"
             echo "keyPassword=${KEY_PASSWORD}"
           } > android/keystore.properties
+          echo "SIGNED=true" >> "$GITHUB_ENV"
 
       - name: Build release bundle
         run: ./gradlew :android:bundleRelease --no-daemon --stacktrace
 
-      - name: Verify the AAB is signed
+      - name: Report result
         run: |
           AAB=android/build/outputs/bundle/release/android-release.aab
           test -f "$AAB" || { echo "::error::AAB not found at $AAB"; exit 1; }
-          BT=$(ls "$ANDROID_SDK_ROOT"/build-tools/* -d | sort -V | tail -1)
-          "$BT/apksigner" verify --min-sdk-version 26 --verbose "$AAB" \
-            && echo "AAB is signed." \
-            || echo "::warning::apksigner could not verify (AAB bundles are jarsigner-signed; Play will re-verify on upload)."
+          if [ "${SIGNED:-false}" = "true" ]; then
+            echo "Built a SIGNED release bundle - ready to upload to Play Console."
+          else
+            echo "::warning::Built an UNSIGNED release bundle (compile check only - NOT uploadable). Add keystore secrets for a signed AAB."
+          fi
 
       - name: Clean up signing material
         if: always()

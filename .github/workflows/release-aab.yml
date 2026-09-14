@@ -60,7 +60,9 @@ jobs:
           echo "SIGNED=true" >> "$GITHUB_ENV"
 
       - name: Build release bundle
-        run: ./gradlew :android:bundleRelease --no-daemon --stacktrace
+        run: |
+          chmod +x gradlew
+          ./gradlew :android:bundleRelease --no-daemon --stacktrace
 
       - name: Report result
         run: |
